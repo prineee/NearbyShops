@@ -1,0 +1,25 @@
+{
+    "title": "Nearby Shops",
+    "name": "nearby-shops",
+    "version": "1.0",
+    "description": "Just a simple implementation of a web app that lists nearby shops.",
+    "homepage": "https://github.com/achraf52/nearby-shops",
+    "author": "Achraf Almouloudi",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/achraf52/nearby-shops/issues",
+        "email": "achraf52@outlook.com"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/achraf52/nearby-shops.git"
+    },
+    "dependencies": {
+        "bootstrap": "4.1.3",
+        "jquery": "3.3.1"
+    },
+    "devDependencies": {
+        "browser-sync": "2.24.6",
+        "gulp": "^3.9.1"
+    }
+}
