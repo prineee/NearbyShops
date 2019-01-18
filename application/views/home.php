@@ -11,8 +11,8 @@
 			<h1 class="display-4">Nearby Shops!</h1>
 			<hr class="my-4">
 			<p>Just a simple implementation of a web app that lists nearby shops.</p>
-			<a class="btn btn-primary btn-lg" href="register" role="button">Register</a>
-			<a class="btn btn-primary btn-lg" href="signin" role="button">Signin</a>
+			<a class="btn btn-primary btn-lg" href="<?php echo base_url('register'); ?>" role="button">Register</a>
+			<a class="btn btn-primary btn-lg" href="<?php echo base_url('signin'); ?>" role="button">Signin</a>
 		  </div>
 		
 		</div>

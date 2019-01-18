@@ -1,7 +1,7 @@
 	<!-- Navigation -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
 	  <div class="container">
-		<a class="navbar-brand" href="/">Nearby Shops</a>
+		<a class="navbar-brand" href="<?php echo base_url(); ?>">Nearby Shops</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
 		  <span class="navbar-toggler-icon"></span>
 		</button>
@@ -10,30 +10,30 @@
 
 			<?php
 
-			$isSignedIn = FALSE;
+			$isSignedIn = TRUE;
 
 			if( $isSignedIn ) {
+				?>
 
-			  echo '
-			  <li class="nav-item active">
-				<a class="nav-link" href="nearby">Nearby Shops</a>
-			  </li>
-			  <li class="nav-item active">
-				<a class="nav-link" href="preferred">My Preferred Shops</a>
-			  </li>
-			  ';
+				<li class="nav-item active">
+					<a class="nav-link" href="<?php echo base_url('nearby'); ?>">Nearby Shops</a>
+				</li>
+				<li class="nav-item active">
+					<a class="nav-link" href="<?php echo base_url('preferred'); ?>">My Preferred Shops</a>
+				</li>
 
+				<?php
 			} else {
+				?>
 
-			  echo '
-			  <li class="nav-item active">
-				<a class="nav-link" href="register">Register</a>
-			  </li>
-			  <li class="nav-item active">
-				<a class="nav-link" href="signin">Signin</a>
-			  </li>
-			  ';
+				<li class="nav-item active">
+					<a class="nav-link" href="<?php echo base_url('register'); ?>">Register</a>
+				</li>
+				<li class="nav-item active">
+					<a class="nav-link" href="<?php echo base_url('signin'); ?>">Signin</a>
+				</li>
 
+				<?php
 			}
 
 			?>
