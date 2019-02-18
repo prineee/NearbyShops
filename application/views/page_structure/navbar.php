@@ -10,9 +10,7 @@
 
 			<?php
 
-			$isSignedIn = TRUE;
-
-			if( $isSignedIn ) {
+			if( isLoggedIn() ) {
 				?>
 
 				<li class="nav-item active">
@@ -20,6 +18,9 @@
 				</li>
 				<li class="nav-item active">
 					<a class="nav-link" href="<?php echo base_url('preferred'); ?>">My Preferred Shops</a>
+				</li>
+				<li class="nav-item active">
+					<a class="nav-link" href="<?php echo base_url('logout'); ?>">Logout</a>
 				</li>
 
 				<?php
@@ -30,7 +31,7 @@
 					<a class="nav-link" href="<?php echo base_url('register'); ?>">Register</a>
 				</li>
 				<li class="nav-item active">
-					<a class="nav-link" href="<?php echo base_url('signin'); ?>">Signin</a>
+					<a class="nav-link" href="<?php echo base_url('login'); ?>">Login</a>
 				</li>
 
 				<?php

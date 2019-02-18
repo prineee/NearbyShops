@@ -12,7 +12,7 @@
 			<hr class="my-4">
 			<p>Just a simple implementation of a web app that lists nearby shops.</p>
 			<a class="btn btn-primary btn-lg" href="<?php echo base_url('register'); ?>" role="button">Register</a>
-			<a class="btn btn-primary btn-lg" href="<?php echo base_url('signin'); ?>" role="button">Signin</a>
+			<a class="btn btn-primary btn-lg" href="<?php echo base_url('login'); ?>" role="button">Login</a>
 		  </div>
 		
 		</div>

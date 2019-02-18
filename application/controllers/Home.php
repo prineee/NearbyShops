@@ -2,8 +2,13 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Home extends CI_Controller {
-	public function index()
-	{
+	public function index() {
+		// Check whether the user is logged in
+		if( isLoggedIn() ) {
+			// Redirect to dashboard
+			redirect( base_url('nearby') );
+		}
+
 		// Insert page title into the variables array
 		$variables['pageSubTitle'] = 'Home';
 

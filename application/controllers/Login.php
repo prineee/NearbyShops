@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Register extends CI_Controller {
+class Login extends CI_Controller {
 	public function index() {
 		// Check whether the user is logged in
 		if( isLoggedIn() ) {
@@ -13,32 +13,37 @@ class Register extends CI_Controller {
 		$this->load->library('form_validation');
 
 		// Insert page title into the variables array
-		$variables['pageSubTitle'] = 'Account registration';
+		$variables['pageSubTitle'] = 'Account login';
 
 		// Set custom delimiters for displaying validation errors
 		$this->form_validation->set_error_delimiters('<li>', '</li>');
 
+		// if the user came from a successful registration
+		if($this->session->referrer == "register") {
+			$variables['new_user'] = true;
+		} else {
+			$variables['new_user'] = false;
+		}
+
 		// Run form validation
-		if ($this->form_validation->run('register') !== FALSE) {
-			$email = $this->input->post('email');
+		if ($this->form_validation->run('login') !== FALSE) {
 			$username = $this->input->post('username');
 			$password = $this->input->post('password');
 
 			// Load our user account model and connect to database
 			$this->load->model('account_model', 'model', TRUE);
 
-			// Hash the password
-			$pwdHash = pwdHash($password);
+			// Use the login method to check the validity of user credentials
+			$login_model = $this->model->login($username, $password);
 
-			// Use the regidster method to complete user registration
-			if( $this->model->register($email, $username, $pwdHash) === TRUE) {
-				// Set referrer in flashdata storage
-				$this->session->set_flashdata('referrer', 'register');
-				// Redirect user to login page
-				redirect( base_url('login') );
+			if($login_model == FALSE) {
+				// Set error for account not found
+				$variables['custom_error'] = "Wrong login details";
 			} else {
-				// Database error occured
-				redirect( base_url('error') );
+				// Successful user login save session
+				$this->session->id = $login_model;
+				// Redirect user to nearby shops
+				redirect( base_url('nearby') );
 			}
 		}
 
@@ -47,7 +52,7 @@ class Register extends CI_Controller {
 		$this->load->view('page_structure/navbar');
 		
 		// Load the main page view
-		$this->load->view('register');
+		$this->load->view('login');
 
 		// Load footer view
 		$this->load->view('page_structure/footer');
