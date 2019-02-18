@@ -1,15 +1,22 @@
-# top-most EditorConfig file
+# The top-most EditorConfig file
 root = true
 
-# Unix-style newlines with a newline ending every file
-[*]
-end_of_line = lf
-insert_final_newline = true
-
-# Matches multiple files with brace expansion notation
 # Set default charset
 [*]
 charset = utf-8
 
-# Tab indentation (no size specified)
+# Indentation style
+[*]
 indent_style = tab
+indent_style = 4
+
+# Use Unix-style newlines
+[*]
+end_of_line = lf
+
+# Trim trailing whitespace
+trim_trailing_whitespace = true
+
+# Add a newline ending those files
+[*.{txt,js,php}]
+insert_final_newline = true

@@ -2,8 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Nearby extends CI_Controller {
-	public function index()
-	{
+	public function index() {
 		// Insert page title into the variables array
 		$variables['pageSubTitle'] = 'Shop Locator';
 
