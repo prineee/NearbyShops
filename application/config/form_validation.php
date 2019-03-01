@@ -28,13 +28,25 @@ $config = array(
 	'liker' => array(
 		array(
 			'field' => 'id',
-			'label' => 'shop id',
-			'rules' => 'trim|required|integer',
+			'label' => 'button id',
+			'rules' => 'trim|required|integer|min_length[1]|max_length[10]',
 		),
 		array(
 			'field' => 'action',
 			'label' => 'action type',
 			'rules' => 'trim|required|in_list[like,unlike,dislike]',
+		),
+	),
+	'locator' => array(
+		array(
+			'field' => 'latitude',
+			'label' => 'latitude',
+			'rules' => 'trim|required|numeric|greater_than_equal_to[-90]|less_than_equal_to[90]',
+		),
+		array(
+			'field' => 'longitude',
+			'label' => 'longitude',
+			'rules' => 'trim|required|numeric|greater_than_equal_to[-180]|less_than_equal_to[180]',
 		),
 	),
 );

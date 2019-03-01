@@ -58,7 +58,10 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('session');
+$autoload['libraries'] = array(
+	'session',
+	'form_validation',
+);
 
 /*
 | -------------------------------------------------------------------
@@ -93,7 +96,8 @@ $autoload['helper'] = array(
 	'url',
 	'pwd_funcs',
 	'is_valid_email',
-	'is_logged_in'
+	'is_logged_in',
+	'get_distance_difference',
 );
 
 /*
