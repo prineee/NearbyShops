@@ -3,14 +3,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Login extends CI_Controller {
 	public function index() {
-		// Check whether the user is logged in
+		// Check if the user is logged in
 		if( isLoggedIn() ) {
 			// Redirect to dashboard
 			redirect( base_url('nearby') );
 		}
-
-		// Load the form vzlidation library
-		$this->load->library('form_validation');
 
 		// Insert page title into the variables array
 		$variables['pageSubTitle'] = 'Account login';
@@ -19,24 +16,20 @@ class Login extends CI_Controller {
 		$this->form_validation->set_error_delimiters('<li>', '</li>');
 
 		// if the user came from a successful registration
-		if($this->session->referrer == "register") {
-			$variables['new_user'] = true;
-		} else {
-			$variables['new_user'] = false;
-		}
+		$variables['new_user'] = ($this->session->referrer === "register");
 
 		// Run form validation
-		if ($this->form_validation->run('login') !== FALSE) {
+		if($this->form_validation->run('login') !== FALSE) {
 			$username = $this->input->post('username');
 			$password = $this->input->post('password');
 
-			// Load our user account model and connect to database
-			$this->load->model('account_model', 'model', TRUE);
+			// Load our user account model and connect to the database
+			$this->load->model('account_model', 'account', TRUE);
 
 			// Use the login method to check the validity of user credentials
-			$login_model = $this->model->login($username, $password);
+			$login_model = $this->account->login($username, $password);
 
-			if($login_model == FALSE) {
+			if($login_model === FALSE) {
 				// Set error for account not found
 				$variables['custom_error'] = "Wrong login details";
 			} else {

@@ -9,15 +9,14 @@ class Account_model extends MY_Model {
 		$this->table = 'users';
 	}
 
-	public function register($email, $username, $password) {
+	public function register($username, $password) {
 		// Hash the password
 		$password = pwdHash($password);
 
 		// Place insert operation values into an array
 		$data = array(
-			'email' => $email,
 			'username' => $username,
-			'password' => $password
+			'password' => $password,
 		);
 
 		// Execute the insert operation into the table
