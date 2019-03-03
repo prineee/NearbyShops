@@ -20,23 +20,22 @@ class Login extends CI_Controller {
 
 		// Run form validation
 		if($this->form_validation->run('login') !== FALSE) {
-			$username = $this->input->post('username');
+			// Retrieve submitted account login credentials
+			$email = $this->input->post('email');
 			$password = $this->input->post('password');
 
 			// Load our user account model and connect to the database
 			$this->load->model('account_model', 'account', TRUE);
 
 			// Use the login method to check the validity of user credentials
-			$login_model = $this->account->login($username, $password);
-
-			if($login_model === FALSE) {
-				// Set error for account not found
-				$variables['custom_error'] = "Wrong login details";
-			} else {
+			if( ($id = $this->account->login($email, $password)) !== FALSE ) {
 				// Successful user login save session
-				$this->session->id = $login_model;
+				$this->session->id = $id;
 				// Redirect user to nearby shops
 				redirect( base_url('nearby') );
+			} else {
+				// Set message for account not found
+				$variables['custom_error'] = "Wrong login details";
 			}
 		}
 

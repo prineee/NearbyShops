@@ -43,21 +43,24 @@
 								Account registered successfully!<br>
 								Please login below to continue
 							</div>
-							';
+
+							<?php
 						}
 
 						?>
 						
 						<form action="<?php echo base_url('login'); ?>" method="post">
 							<div class="form-group">
-								<label for="email">Username</label>
-								<input id="username" name="username" type="text" class="form-control" id="username" placeholder="Your username" autofocus required>
+								<label for="email">Email</label>
+								<input id="email" name="email" type="email" class="form-control" placeholder="Your email" autofocus required>
 							</div>
 
 							<div class="form-group">
 								<label for="password">Password</label>
 								<input id="password" name="password" type="password" class="form-control" id="password" placeholder="Your password" required>
 							</div>
+
+							<input name="<?php echo $this->security->get_csrf_token_name(); ?>" type="hidden" value="<?php echo $this->security->get_csrf_hash(); ?>">
 
 							<div class="text-center">
 								<button id="submit" name"register" class="btn btn-primary">Login</button>

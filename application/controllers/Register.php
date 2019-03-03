@@ -16,22 +16,23 @@ class Register extends CI_Controller {
 		$this->form_validation->set_error_delimiters('<li>', '</li>');
 
 		// Run form validation
-		if($this->form_validation->run('register') !== FALSE) {
-			$username = $this->input->post('username');
+		if( $this->form_validation->run('register') !== FALSE ) {
+			// Retrieve submitted email and password form inputs
+			$email = $this->input->post('email');
 			$password = $this->input->post('password');
 
 			// Load our user account model and connect to the database
 			$this->load->model('account_model', 'account', TRUE);
 
 			// Use the regidster method to complete user registration
-			if( $this->account->register($username, $password) === TRUE) {
+			if( $this->account->register($email, $password) === TRUE ) {
 				// Set referrer in flashdata storage
 				$this->session->set_flashdata('referrer', 'register');
 				// Redirect user to login page
 				redirect( base_url('login') );
 			} else {
-				// Database error occured
-				redirect( base_url('error') );
+				// Set message for database error
+				$variables['custom_error'] = "Database error occured";
 			}
 		}
 

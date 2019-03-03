@@ -38,14 +38,11 @@
 							</div>
 
 							<div class="form-group">
-								<label for="email">Username</label>
-								<input id="username" name="username" type="text" class="form-control" placeholder="Choose an username" value="<?php echo set_value('username'); ?>" title="A valid username of alphanumeric and dash characters is required" required>
-							</div>
-
-							<div class="form-group">
 								<label for="password">Password</label>
 								<input id="password" name="password" type="password" class="form-control" placeholder="Create strong password" title="A strong password of at least 8 characters is required" required>
 							</div>
+
+							<input name="<?php echo $this->security->get_csrf_token_name(); ?>" type="hidden" value="<?php echo $this->security->get_csrf_hash(); ?>">
 
 							<div class="text-center">
 								<button id="submit" name"register" type="submit" class="btn btn-primary">Register</button>

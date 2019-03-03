@@ -3,9 +3,9 @@
 $config = array(
 	'register' => array(
 		array(
-			'field' => 'username',
-			'label' => 'username',
-			'rules' => 'trim|required|strip_tags|alpha_dash|min_length[6]|max_length[32]|is_unique[users.username]',
+			'field' => 'email',
+			'label' => 'email address',
+			'rules' => 'trim|required|strip_tags|valid_email|min_length[6]|max_length[64]|is_unique[users.email]'
 		),
 		array(
 			'field' => 'password',
@@ -15,9 +15,9 @@ $config = array(
 	),
 	'login' => array(
 		array(
-			'field' => 'username',
-			'label' => 'username',
-			'rules' => 'trim|required|strip_tags',
+			'field' => 'email',
+			'label' => 'email address',
+			'rules' => 'trim|required|strip_tags|valid_email'
 		),
 		array(
 			'field' => 'password',

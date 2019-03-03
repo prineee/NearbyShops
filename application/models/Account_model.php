@@ -9,13 +9,13 @@ class Account_model extends MY_Model {
 		$this->table = 'users';
 	}
 
-	public function register($username, $password) {
+	public function register($email, $password) {
 		// Hash the password
 		$password = pwdHash($password);
 
 		// Place insert operation values into an array
 		$data = array(
-			'username' => $username,
+			'email' => $email,
 			'password' => $password,
 		);
 
@@ -29,12 +29,13 @@ class Account_model extends MY_Model {
 		}
 	}
 
-	public function login($username, $password_entered_plain) {
-		// Execute the login query with provided username
-		$account_data = $this->get_by_key('username', $username);
+	public function login($email, $password_entered_plain) {
+		// Execute the login query with provided email
+		$account_data = $this->get_by_key('email', $email);
+
 		// If an array is returned then the operation succeeded, else is failure
 		if ( is_object($account_data) ) {
-			// Retrieve the corresponding password of the provided username
+			// Retrieve the corresponding password of the provided email
 			$password_hash_database = $account_data->password;
 			// Check if the stored entered password hash and the password hash matches
 			if(pwdCheck($password_entered_plain, $password_hash_database) === FALSE) {
@@ -45,7 +46,7 @@ class Account_model extends MY_Model {
 				return $account_data->id;
 			}
 		} else {
-			// Username not found in table
+			// Email not found in table
 			return false;
 		}
 	}
