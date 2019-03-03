@@ -14,13 +14,14 @@ class MY_Model extends CI_Model {
 	}
 
 	// Gets all rows from the current table matching the key value
-	public function get_all_entries($key, $value) {
-		// Select row to be fetched
-		$this->db->where($key, $value);
-		// Execute the find query with provided data
-		$query = $this->db->get($this->table);
-		// Return an object with all the data
-		return $query->result();
+	public function get_all_entries($key = '', $value = NULL) {
+		// Add where clause if a specific key is provided
+		if($key !== '' && $value !== NULL) {
+			// Select row to be fetched
+			$this->db->where($key, $value);
+		}
+		// Execute the get query and return the results
+		return $this->db->get($this->table)->result();
 	}
 
 	// Gets a single hopefully unique row matching the key value

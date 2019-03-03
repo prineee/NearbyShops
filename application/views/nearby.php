@@ -11,6 +11,31 @@
 	<!-- Page Content -->
 	<div class="container">
 
+		<?php
+
+		if($location === FALSE) {
+			?>
+
+			<div class="row">
+				<div class="mx-auto">
+					<button id="getLocation" class="btn btn-primary">Get Location</button>
+				</div>
+			</div>
+
+			<?php
+		}
+
+		?>
+
+		<div class="row">
+			<div class="alert mx-auto mt-3 hidden" role="alert">
+				<span id="alert"></span>
+				<button type="button" class="close" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		</div>
+
 		<div class="row">
 
 			<?php

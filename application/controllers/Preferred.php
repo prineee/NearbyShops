@@ -31,6 +31,11 @@ class Preferred extends CI_Controller {
 			// Refresh the page to prevent a page refresh from repeating the query
 			redirect( base_url('preferred') );
 		}
+
+		// Get latitude and longitude from session data
+		$latitude = $this->session->latitude;
+		$longitude = $this->session->longitude;
+
 		// Fetch all the shops using the shops model
 		$shops = $this->shops->get_shops();
 
@@ -38,30 +43,41 @@ class Preferred extends CI_Controller {
 		$likes = $this->likes->get_likes($this->session->id);
 		$dislikes = $this->dislikes->get_dislikes($this->session->id);
 
-		// Mock location
-		$my_latitude = 33.9722702;
-		$my_longitude = -6.8515323;
+		// If user location is provided and is not null
+		if( ! is_null($latitude) && ! is_null($longitude) ) {
+			// Set location as already obtained
+			$variables['location'] = true;
+		} else {
+			// Set location as not obtained
+			$variables['location'] = false;
+		}
 
 		// Go through the shops array and prepare it for sorting
 		foreach ($shops as $id => $details) {
-			// Remove not likes or dislikes shops from the shops array
+			// Remove likes or dislikes shops from the shops array
 			if( (array_search($id, $likes) === FALSE) || (array_search($id, $dislikes) !== FALSE) ) {
 				// Unset the entry from array
 				unset($shops[$id]);
 			} else {
-				// Calculate the distance difference from the user location
-				$distance_to_user[$id] = getDistanceDifference($my_latitude, $my_longitude, $details['latitude'], $details['longitude']);
+				// If user location is provided and is not null
+				if( $variables['location'] === TRUE ) {
+					// Calculate the distance difference from the user location
+					$distance_to_user[$id] = getDistanceDifference($latitude, $longitude, $details['latitude'], $details['longitude']);
+				}
 			}
 		}
 
-		// Check if the resulting distances array is not empty before proceeding
-		if( empty($distance_to_user) === FALSE ) {
+		// Check if the resulting distances is an array and is not empty
+		if( ! empty($distance_to_user) ) {
 			// Sort the array by the calculated distance value
 			asort($distance_to_user);
-			// Fill preferred array based o the sorted distance ids
+			// Fill preferred array based on the sorted distance ids
 			foreach ($distance_to_user as $id => $distance) {
 				$variables['preferred'][$id] = $shops[$id];
 			}
+		} else {
+			// Fill preferred array with the shops left
+			$variables['preferred'] = $shops;
 		}
 
 		// Load header and navbar views

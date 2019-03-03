@@ -16,28 +16,33 @@ class Dislikes_model extends MY_Model {
 		// Fetch database for the list of dislikes shop ids by the usee
 		$query = $this->get_all_entries('user_id', $user_id);
 
-		// Go through the query results
-		foreach ($query as $object => $row) {
-			// Convert MySQL timestamp format to Unix timestamp format
-			$row_timestamp = strtotime($row->timestamp);
+		if( is_array($query) ) {
+			// Go through the query results
+			foreach ($query as $object => $row) {
+				// Convert MySQL timestamp format to Unix timestamp format
+				$row_timestamp = strtotime($row->timestamp);
 
-			// Check if the conversion was successful
-			if($row_timestamp !== FALSE) {
-				// Get the current timestamp value
-				$current_timestamp = time();
-				// Check whether the row is older than 2 hours
-				if( ($current_timestamp-$row_timestamp) > 7200 ) {
-					// If so delete the row from the table
-					$this->remove_dislike($row->id);
-				} else {
-					// Otherwise add the shop is to dislikes array
-					$dislikes[$row->id] = $row->shop_id;
+				// Check if the conversion was successful
+				if($row_timestamp !== FALSE) {
+					// Get the current timestamp value
+					$current_timestamp = time();
+					// Check whether the row is older than 2 hours
+					if( ($current_timestamp-$row_timestamp) > 7200 ) {
+						// If so delete the row from the table
+						$this->remove_dislike($row->id);
+					} else {
+						// Otherwise add the shop is to dislikes array
+						$dislikes[$row->id] = $row->shop_id;
+					}
 				}
 			}
-		}
 
-		// Return dislikes array
-		return $dislikes;
+			// Return dislikes array
+			return $dislikes;
+		} else {
+			// Table query failed
+			return false;
+		}
 	}
 
 	public function add_dislike($user_id, $shop_id) {

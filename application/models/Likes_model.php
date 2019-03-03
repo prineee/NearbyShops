@@ -16,14 +16,19 @@ class Likes_model extends MY_Model {
 		// Fetch table for the list of likes shop ids by the user
 		$query = $this->get_all_entries('user_id', $user_id);
 
-		// Go through the query results
-		foreach ($query as $object => $row) {
-			// Assign each row as a shop id
-			$likes[$row->id] = $row->shop_id;
-		}
+		if( is_array($query) ) {
+			// Go through the query results
+			foreach ($query as $object => $row) {
+				// Assign each row as a shop id
+				$likes[$row->id] = $row->shop_id;
+			}
 
-		// Return likes array
-		return $likes;
+			// Return likes array
+			return $likes;
+		} else {
+			// Table query failed
+			return false;
+		}
 	}
 
 	public function add_like($user_id, $shop_id) {
@@ -50,6 +55,7 @@ class Likes_model extends MY_Model {
 	public function remove_like($user_id, $shop_id) {
 		// Select the like row by user id
 		$this->db->where('user_id', $user_id);
+
 		// Delete the shop id like corresponding to that user
 		return $this->delete_by_key('shop_id', $shop_id);
 	}
