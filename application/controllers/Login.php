@@ -3,14 +3,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Login extends CI_Controller {
 	public function index() {
-		// Check if the user is logged in
+		// Check whether the user is logged in
 		if( isLoggedIn() ) {
-			// Redirect to dashboard
+			// Redirect to nearby shops page
 			redirect( base_url('nearby') );
 		}
 
-		// Insert page title into the variables array
-		$variables['pageSubTitle'] = 'Account login';
+		// Insert page sub title into the variables array
+		$variables['sub_title'] = 'Account login';
 
 		// Set custom delimiters for displaying validation errors
 		$this->form_validation->set_error_delimiters('<li>', '</li>');

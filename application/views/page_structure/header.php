@@ -8,7 +8,7 @@
 		<meta name="description" content="">
 		<meta name="author" content="">
 
-		<title>Nearby Shops - <?php echo $pageSubTitle; ?></title>
+		<title>Nearby Shops - <?php echo $sub_title; ?></title>
 
 		<!-- Bootstrap core CSS -->
 		<link href="<?php echo base_url('assets/bootstrap/css/bootstrap.min.css'); ?>" rel="stylesheet">

@@ -5,12 +5,12 @@ class Nearby extends CI_Controller {
 	public function index() {
 		// Check whether the user is logged in
 		if( isLoggedIn() === FALSE ) {
-			// Redirect to dashboard
-			redirect( base_url() );
+			// Redirect to the login page
+			redirect( base_url('login') );
 		}
 
-		// Insert page title into the variables array
-		$variables['pageSubTitle'] = 'Shops Near Me';
+		// Insert page sub title into the variables array
+		$variables['sub_title'] = 'Shops Near Me';
 
 		// Load our shops and likes and dislikes models and connect to the database
 		$this->load->model('shops_model', 'shops', TRUE);

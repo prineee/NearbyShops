@@ -5,12 +5,12 @@ class Home extends CI_Controller {
 	public function index() {
 		// Check whether the user is logged in
 		if( isLoggedIn() ) {
-			// Redirect to dashboard
+			// Redirect to nearby shops page
 			redirect( base_url('nearby') );
 		}
 
-		// Insert page title into the variables array
-		$variables['pageSubTitle'] = 'Home';
+		// Insert page sub title into the variables array
+		$variables['sub_title'] = 'Home';
 
 		// Load header and navbar views
 		$this->load->view('page_structure/header', $variables);
