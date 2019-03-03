@@ -1,14 +1,15 @@
 {
-	"description": "The CodeIgniter framework",
-	"name": "codeigniter/framework",
+	"title": "Nearby Shops",
+    "name": "achraf52/nearby-shops",
+	"description": "Just a simple implementation of a web app that lists nearby shops.",
+	"version": "1.0",
 	"type": "project",
 	"homepage": "https://codeigniter.com",
 	"license": "MIT",
 	"support": {
-		"forum": "http://forum.codeigniter.com/",
-		"wiki": "https://github.com/bcit-ci/CodeIgniter/wiki",
-		"slack": "https://codeigniterchat.slack.com",
-		"source": "https://github.com/bcit-ci/CodeIgniter"
+		"source": "https://github.com/achraf52/NearbyShops",
+		"issues": "https://github.com/achraf52/NearbyShops/issues",
+		"wiki": "https://github.com/achraf52/NearbyShops/wiki"
 	},
 	"require": {
 		"php": ">=5.3.7"

@@ -95,7 +95,6 @@ $autoload['drivers'] = array();
 $autoload['helper'] = array(
 	'url',
 	'pwd_funcs',
-	'is_valid_email',
 	'is_logged_in',
 	'get_distance_difference',
 );

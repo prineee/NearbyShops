@@ -1,4 +1,9 @@
+/* Hide element */
+.hidden {
+	display:none;
+}
+
 /* Align element right */
 .pull-right {
-  float: right !important;
+	float: right !important;
 }
