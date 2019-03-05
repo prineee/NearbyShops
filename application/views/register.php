@@ -19,12 +19,14 @@
 
 						<?php
 
-						$validation_errors = validation_errors();
-						
 						echo '<ul>';
 
-						if( ! empty($validation_errors) ) {
-							echo $validation_errors;
+						// Output validation errors if available
+						echo validation_errors('<li>', '</li>');
+
+						// Output any other custom error
+						if( isset($custom_error) ) {
+							echo '<li>'.$custom_error.'</li>';
 						}
 
 						echo '</ul>';

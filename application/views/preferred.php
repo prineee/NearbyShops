@@ -62,6 +62,7 @@
 
 								<form method="post" action="preferred">
 									<input name="id" type="hidden" value="<?php echo $id; ?>">
+									<input name="<?php echo $this->security->get_csrf_token_name(); ?>" type="hidden" value="<?php echo $this->security->get_csrf_hash(); ?>"><br>
 									<button name="action" type="^submit" class="btn btn-lg btn-info btn-block" value="unlike">Remove</button>
 								</form>
 

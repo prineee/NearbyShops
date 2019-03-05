@@ -19,14 +19,12 @@
 
 						<?php
 
-						$validation_errors = validation_errors();
-
 						echo '<ul>';
 						
-						if( ! empty($validation_errors) ) {
-							echo $validation_errors;
-						}
+						// Output validation errors if available
+						echo validation_errors('<li>', '</li>');
 
+						// Output any other custom error
 						if( isset($custom_error) ) {
 							echo '<li>'.$custom_error.'</li>';
 						}
@@ -34,7 +32,8 @@
 						echo '</ul>';
 
 						if($new_user == TRUE) {
-							echo '
+							?>
+
 							<div class="alert alert-success fade show" role="alert">
 								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 									<span aria-hidden="true">&times;</span>

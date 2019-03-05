@@ -3,7 +3,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12 text-center">
-				<h1 class="mt-3">Shop Locator</h1>
+				<h1 class="mt-3">Shops Near Me</h1>
 			</div>
 		</div>
 	</div>
@@ -44,7 +44,7 @@
 				?>
 
 				<div class="col-lg-12 text-center">
-					<h5 class="mt-3">No shops available or nearby</h5>'
+					<h5 class="mt-3">No shops available or nearby were found</h5>
 				</div>
 
 				<?php
@@ -62,6 +62,7 @@
 
 								<form method="post" action="nearby">
 									<input name="id" type="hidden" value="<?php echo $id; ?>">
+									<input name="<?php echo $this->security->get_csrf_token_name(); ?>" type="hidden" value="<?php echo $this->security->get_csrf_hash(); ?>"><br>
 									<button name="action" type="submit" class="btn btn-lg btn-success" value="like">Like</button>
 									<button name="action" type="submit" class="btn btn-lg btn-danger pull-right" value="dislike">Dislike</button>
 								</form>
