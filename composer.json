@@ -4,7 +4,6 @@
 	"description": "Just a simple implementation of a web app that lists nearby shops.",
 	"version": "1.0",
 	"type": "project",
-	"homepage": "https://codeigniter.com",
 	"license": "MIT",
 	"support": {
 		"source": "https://github.com/achraf52/NearbyShops",
@@ -12,7 +11,8 @@
 		"wiki": "https://github.com/achraf52/NearbyShops/wiki"
 	},
 	"require": {
-		"php": ">=5.3.7"
+		"php": ">=5.3.7",
+		"codeigniter": ">=v3.1.10"
 	},
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"
