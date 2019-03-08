@@ -60,7 +60,6 @@ $autoload['packages'] = array();
 */
 $autoload['libraries'] = array(
 	'session',
-	'form_validation',
 );
 
 /*
@@ -94,9 +93,7 @@ $autoload['drivers'] = array();
 */
 $autoload['helper'] = array(
 	'url',
-	'pwd_funcs',
 	'is_logged_in',
-	'get_distance_difference',
 );
 
 /*

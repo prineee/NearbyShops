@@ -93,6 +93,6 @@ $db['default'] = array(
 	'encrypt' => FALSE,
 	'compress' => FALSE,
 	'stricton' => FALSE,
-	'save_queries' => TRUE,
-	'failover' => array()
+	'save_queries' => FALSE,
+	'failover' => array(),
 );

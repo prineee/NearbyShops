@@ -5,7 +5,7 @@ $config = array(
 		array(
 			'field' => 'email',
 			'label' => 'email address',
-			'rules' => 'trim|required|strip_tags|valid_email|min_length[6]|max_length[64]|is_unique[users.email]'
+			'rules' => 'trim|required|strip_tags|valid_email|min_length[6]|max_length[64]|is_unique[users.email]',
 		),
 		array(
 			'field' => 'password',
@@ -17,7 +17,7 @@ $config = array(
 		array(
 			'field' => 'email',
 			'label' => 'email address',
-			'rules' => 'trim|required|strip_tags|valid_email'
+			'rules' => 'trim|required|strip_tags|valid_email',
 		),
 		array(
 			'field' => 'password',
@@ -28,7 +28,7 @@ $config = array(
 	'liker' => array(
 		array(
 			'field' => 'id',
-			'label' => 'button id',
+			'label' => 'shop id',
 			'rules' => 'trim|required|integer|min_length[1]|max_length[10]',
 		),
 		array(

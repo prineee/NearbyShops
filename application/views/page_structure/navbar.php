@@ -10,7 +10,7 @@
 
 			<?php
 
-			if( isLoggedIn() ) {
+			if(is_logged_in() === TRUE) {
 				?>
 
 				<li class="nav-item active">

@@ -2,8 +2,8 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 // Check if the function doesn't already exist
-if ( ! function_exists('isLoggedIn') ) {
-	function isLoggedIn() {
+if ( ! function_exists('is_logged_in') ) {
+	function is_logged_in() {
 		// Get CodeIgniter instance by reference
 		$CI =& get_instance();
 

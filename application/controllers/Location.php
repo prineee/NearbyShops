@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Location extends CI_Controller {
 	public function index() {
 		// Check whether the user is logged in
-		if( isLoggedIn() === FALSE ) {
+		if(is_logged_in() === FALSE) {
 			// Redirect to the home page
 			redirect( base_url() );
 		}
