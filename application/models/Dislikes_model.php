@@ -2,6 +2,9 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Dislikes_model extends MY_Model {
+	protected $dislikes, $query, $row_timestamp, $current_timestamp, $row_exists, $data;
+	public $table;
+
 	public function __construct() {
 		parent::__construct();
 
@@ -11,34 +14,34 @@ class Dislikes_model extends MY_Model {
 
 	public function get_dislikes($user_id) {
 		// Initialize the dislikes array in case there is no likes shops
-		$dislikes = array();
+		$this->dislikes = array();
 
 		// Fetch database for the list of dislikes shop ids by the usee
-		$query = $this->get_all_entries('user_id', $user_id);
+		$this->query = $this->get_all_entries('user_id', $user_id);
 
-		if( is_array($query) ) {
+		if( is_array($this->query) ) {
 			// Go through the query results
-			foreach ($query as $object => $row) {
+			foreach ($this->query as $object => $row) {
 				// Convert MySQL timestamp format to Unix timestamp format
-				$row_timestamp = strtotime($row->timestamp);
+				$thid->row_timestamp = strtotime($row->timestamp);
 
 				// Check if the conversion was successful
-				if($row_timestamp !== FALSE) {
+				if($this->row_timestamp !== FALSE) {
 					// Get the current timestamp value
-					$current_timestamp = time();
+					$this->current_timestamp = time();
 					// Check whether the row is older than 2 hours
-					if( ($current_timestamp-$row_timestamp) > 7200 ) {
+					if( ($this->current_timestamp - $this->row_timestamp) > 7200 ) {
 						// If so delete the row from the table
 						$this->remove_dislike($row->id);
 					} else {
 						// Otherwise add the shop is to dislikes array
-						$dislikes[$row->id] = $row->shop_id;
+						$this->dislikes[$row->id] = $row->shop_id;
 					}
 				}
 			}
 
 			// Return dislikes array
-			return $dislikes;
+			return $this->dislikes;
 		} else {
 			// Table query failed
 			return false;
@@ -48,18 +51,18 @@ class Dislikes_model extends MY_Model {
 	public function add_dislike($user_id, $shop_id) {
 		// Check whether the user hasn't already disliked this shop
 		$this->db->where('user_id', $user_id);
-		$row_exists = $this->get_by_key('shop_id', $shop_id);
+		$this->row_exists = $this->get_by_key('shop_id', $shop_id);
 
 		// If that's the case and such row doesn't exist
-		if($row_exists === FALSE) {
+		if($this->row_exists === FALSE) {
 			// Place insert operation values into an array
-			$data = array(
+			$this->data = array(
 				'user_id' => $user_id,
 				'shop_id' => $shop_id,
 			);
 
 			// Execute the insert operation into the table
-			return $this->add_new_entry($data);
+			return $this->add_new_entry($this->data);
 		} else {
 			// Avoid inserting duplicate
 			return false;

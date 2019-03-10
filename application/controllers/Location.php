@@ -2,6 +2,8 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Location extends CI_Controller {
+	protected $latitude, $longitude;
+
 	public function index() {
 		// Check whether the user is logged in
 		if(is_logged_in() === FALSE) {
@@ -9,18 +11,17 @@ class Location extends CI_Controller {
 			redirect( base_url() );
 		}
 
+		// Load required libraries
+		$this->load->library('form_validation');
+
 		// Run form validation
 		if($this->form_validation->run('locator') !== FALSE) {
-			// Get submitted latitude and longitude
-			$latitude = $this->input->post('latitude');
-			$longitude = $this->input->post('longitude');
-
-			// Round again server-side just in case
-			$latitude = round($latitude, 8);
-			$longitude = round($longitude, 8);
+			// Get submitted coordinates and round them to proper length
+			$this->latitude = round($this->input->post('latitude'), 8);
+			$this->longitude = round($this->input->post('longitude'), 8);
 
 			// Store latituse and longitude in the session data
-			if( ($this->session->latitude = $latitude) && ($this->session->longitude = $longitude) ) {
+			if( ($this->session->latitude = $this->latitude) && ($this->session->longitude = $this->longitude) ) {
 				// If the operation completed successfully
 				echo 'success';
 			} else {

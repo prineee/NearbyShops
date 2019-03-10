@@ -2,9 +2,9 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 // Check if the function doesn't already exist
-if ( ! function_exists('getDistanceDifference') ) {
+if ( ! function_exists('get_distance_difference') ) {
 	// Declare the function and set the parameters talculate the great-circle distance between two points using the Vincenty formula
-	function getDistanceDifference($latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo, $planetRadius = 6371000, $unit = 'm') {
+	function get_distance_difference($latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo, $planetRadius = 6371000, $unit = 'm') {
 		// Make sure unit is lowercase
 		$unit = strtolower($unit);
 

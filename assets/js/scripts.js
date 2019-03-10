@@ -13,6 +13,56 @@ function alertColor(index, className) {
 	return (className.match (/(^|\s)alert-\S+/g) || []).join(' ');
 }
 
+function showAlert(type, message) {
+	// Clear old alert color class
+	alertBox.removeClass(alertColor);
+	// Show alert box
+	alertBox.removeClass('hidden');
+	// Set warning color
+	alertBox.addClass('alert-'+type);
+	// Set alert message
+	alertMsg.html(message);
+}
+
+function checkLocation(latitude, longitude) {
+	// If latitude and longitude are within the correct range
+	if( (latitude >= -90 && latitude <= 90) && (longitude >= -180 && longitude <= 180) ) {
+		// Location is correct
+		return true;
+	} else {
+		// Set alert type and message
+		showAlert('warning', 'Invalid location provided');
+	}
+}
+
+function submitLocation(latitude, longitude) {
+	// Formulate POST request with parameters
+	var request = {
+		'latitude' : latitude,
+		'longitude' : longitude,
+		'csrf_token' : csrfCookie,
+	};
+
+	// Submit aJax request to endpoint
+	$.ajax({
+		async: true,
+		type: 'POST',
+		url: 'location',
+		dataType: 'text',
+		data: request,
+	}).done(function(response) {
+		if(response === 'success') {
+			// Set alert type and message
+			showAlert('success', 'Location obtained successfully');
+			// Refresh current page
+			location.reload();
+		} else if(response === 'error') {
+			// Set alert type and message
+			showAlert('danger', 'A server error has occurred');
+		}
+	});
+}
+
 // Get location button event listener
 getLocation.click(function() {
 	// Check if browser supports geolocation
@@ -23,108 +73,43 @@ getLocation.click(function() {
 			latitude = position.coords.latitude;
 			longitude = position.coords.longitude;
 
-			// If latitude and longitude are within the correct range
-			if( (latitude >= -90 && latitude <= 90) && (longitude >= -180 && longitude <= 180) ) {
+			// Check if the provided location coordinates are within the true range
+			if( checkLocation(latitude, longitude) === true ) {
 				// Round latitude and longitude to the a precision of 8 digiters after the decimal
 				latitude = Math.floor(latitude * 1e8) / 1e8;
 				longitude = Math.floor(longitude * 1e8) / 1e8;
-			} else {
-				// Clear old alert color class
-				alertBox.removeClass(alertColor);
-				// Show alert box
-				alertBox.removeClass('hidden');
-				// Set warning color
-				alertBox.addClass('alert-warning');
-				// Out of range error message
-				alertMsg.html('Invalid location provided');
-			}
 
-			if(typeof csrfCookie !== 'undefined') {
-				// Formulate POST request with parameters
-				var request = {
-					'latitude' : latitude,
-					'longitude' : longitude,
-					'csrf_token' : csrfCookie,
-				};
-
-				// Submit aJax request to endpoint
-				$.ajax({
-					async: true,
-					type: 'POST',
-					url: 'location',
-					dataType: 'text',
-					data: request,
-				}).done(function(response) {
-					response = 'success';
-					if(response === 'success') {
-						// Clear old alert color class
-						alertBox.removeClass(alertColor);
-						// Show alert box
-						alertBox.removeClass('hidden');
-						// Set success color
-						alertBox.addClass('alert-success');
-						// Location was stored successfully message
-						alertMsg.html('Location obtained successfully');
-
-						// Refresh current page
-						location.reload();
-					} else if(response === 'error') {
-						// Clear old alert color class
-						alertBox.removeClass(alertColor);
-						// Show alert box
-						alertBox.removeClass('hidden');
-						// Set danger color
-						alertBox.addClass('alert-danger');
-						// Location storage was not successful
-						alertMsg.html('A server error has occurred');
-					}
-				});
-			} else {
-				// Clear old alert color class
-				alertBox.removeClass(alertColor);
-				// Show alert box
-				alertBox.removeClass('hidden');
-				// Set danger color
-				alertBox.addClass('alert-danger');
-				// Failute to read the cookie
-				alertMsg.html('Unable to read CSRF cookie');
+				if(typeof csrfCookie !== 'undefined') {
+					// Submit location via asynhronous request
+					submitLocation(latitude, longitude);
+				} else {
+					// Set alert type and message
+					showAlert('danger', 'Unable to read CSRF cookie');
+				}
 			}
 		}, function(error) {
-			// Clear old alert color class
-			alertBox.removeClass(alertColor);
-			// Show alert box
-			alertBox.removeClass('hidden');
-			// Set danger color
-			alertBox.addClass('alert-danger');
-
 			switch(error.code) {
 				case error.PERMISSION_DENIED:
-					// Set error message
-					alertMsg.html('User denied the request for Geolocation');
+					// Set alert type and message
+					showAlert('danger', 'User denied the request for Geolocation');
 					break;
 				case error.POSITION_UNAVAILABLE:
-					// Set error message
-					alertMsg.html('Location information is unavailable');
+					// Set alert type and message
+					showAlert('danger', 'Location information is unavailable');
 					break;
 				case error.TIMEOUT:
-					// Set error message
-					alertMsg.html('The request to get user location timed out');
+					// Set alert type and message
+					showAlert('danger', 'The request to get user location timed out');
 					break;
 				case error.UNKNOWN_ERROR:
-					// Set error message
-					alertMsg.html('An unknown error occurred');
+					// Set alert type and message
+					showAlert('danger', 'An unknown error occurred');
 					break;
 			}
 		});
 	} else {
-		// Clear old alert color class
-		alertBox.removeClass(alertColor);
-		// Show alert box
-		alertBox.removeClass('hidden');
-		// Set danger color
-		alertBox.addClass('alert-danger');
-		// Set error message
-		alertMsg.html('Geolocation is not supported by this browser');
+		// Set alert type and message
+		showAlert('danger', 'Geolocation is not supported by this browser');
 	}
 });
 

@@ -2,6 +2,9 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Shops_model extends MY_Model {
+	protected $shops, $query;
+	public $table;
+
 	public function __construct() {
 		parent::__construct();
 
@@ -11,15 +14,15 @@ class Shops_model extends MY_Model {
 
 	public function get_shops() {
 		// Initialize the shops array in case there is no shops
-		$shops = array();
+		$this->shops = array();
 
 		// Fetch table for the list of shops available
-		$query = $this->get_all_entries();
+		$this->query = $this->get_all_entries();
 
 		// Go through the query results
-		foreach ($query as $object => $row) {
+		foreach ($this->query as $object => $row) {
 			// Assign each row as an indexed entry in the shops array
-			$shops[$row->id] = array(
+			$this->shops[$row->id] = array(
 				'name' => $row->name,
 				'description' => $row->description,
 				'latitude' => $row->latitude,
@@ -29,6 +32,6 @@ class Shops_model extends MY_Model {
 		}
 
 		// Return shops array
-		return $shops;
+		return $this->shops;
 	}
 }
